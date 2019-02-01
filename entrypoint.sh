@@ -17,9 +17,16 @@ if [ ! -f ${PG_CONFIG_DIR}/pgbouncer.ini ]; then
 # Lines starting with “;” or “#” are taken as comments and ignored.
 # The characters “;” and “#” are not recognized when they appear later in the line.
 [databases]
-* = host=${DB_HOST:?"Setup pgbouncer config error! You must set DB_HOST env"} \
-port=${DB_PORT:-5432} user=${DB_USER:-postgres} \
-${DB_PASSWORD:+password=${DB_PASSWORD}}
+${DB_1_NAME} = host=${DB_1_HOST} port=${DB_1_PORT:-5432} dbname=${DB_1_NAME} user=${DB_1_USER:-postgres} ${DB_1_PASSWORD:+password=${DB_1_PASSWORD}\n}\
+${DB_2_NAME:+${DB_2_NAME} = host=${DB_2_HOST} port=${DB_2_PORT:-5432} dbname=${DB_2_NAME} user=${DB_2_USER:-postgres} ${DB_2_PASSWORD:+password=${DB_2_PASSWORD}}\n} \
+${DB_3_NAME:+${DB_3_NAME} = host=${DB_3_HOST} port=${DB_3_PORT:-5432} dbname=${DB_3_NAME} user=${DB_3_USER:-postgres} ${DB_3_PASSWORD:+password=${DB_3_PASSWORD}}\n} \
+${DB_4_NAME:+${DB_4_NAME} = host=${DB_4_HOST} port=${DB_4_PORT:-5432} dbname=${DB_4_NAME} user=${DB_4_USER:-postgres} ${DB_4_PASSWORD:+password=${DB_4_PASSWORD}}\n} \
+${DB_5_NAME:+${DB_5_NAME} = host=${DB_5_HOST} port=${DB_5_PORT:-5432} dbname=${DB_5_NAME} user=${DB_5_USER:-postgres} ${DB_5_PASSWORD:+password=${DB_5_PASSWORD}}\n} \
+${DB_6_NAME:+${DB_6_NAME} = host=${DB_6_HOST} port=${DB_6_PORT:-5432} dbname=${DB_6_NAME} user=${DB_6_USER:-postgres} ${DB_6_PASSWORD:+password=${DB_6_PASSWORD}}\n} \
+${DB_7_NAME:+${DB_7_NAME} = host=${DB_7_HOST} port=${DB_7_PORT:-5432} dbname=${DB_7_NAME} user=${DB_7_USER:-postgres} ${DB_7_PASSWORD:+password=${DB_7_PASSWORD}}\n} \
+${DB_8_NAME:+${DB_8_NAME} = host=${DB_8_HOST} port=${DB_8_PORT:-5432} dbname=${DB_8_NAME} user=${DB_8_USER:-postgres} ${DB_8_PASSWORD:+password=${DB_8_PASSWORD}}\n} \
+${DB_9_NAME:+${DB_9_NAME} = host=${DB_9_HOST} port=${DB_9_PORT:-5432} dbname=${DB_9_NAME} user=${DB_9_USER:-postgres} ${DB_9_PASSWORD:+password=${DB_9_PASSWORD}}\n} \
+${DB_10_NAME:+${DB_10_NAME} = host=${DB_10_HOST} port=${DB_10_PORT:-5432} dbname=${DB_10_NAME} user=${DB_10_USER:-postgres} ${DB_10_PASSWORD:+password=${DB_10_PASSWORD}\n}}\
 
 [pgbouncer]
 # Generic settings
