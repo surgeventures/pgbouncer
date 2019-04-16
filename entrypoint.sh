@@ -152,7 +152,7 @@ mkdir -p ${PG_LOG}
 chmod -R 755 ${PG_LOG}
 chown -R ${PG_USER}:${PG_USER} ${PG_LOG}
 
-if [ -z $QUIET ]; then
+if [ -z $QUIET_CONFIG ]; then
   cat ${PG_CONFIG_DIR}/pgbouncer.ini
 fi
 echo "Starting pgbouncer..."
