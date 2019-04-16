@@ -15,7 +15,7 @@ RUN mkdir /pgbouncer
 RUN git submodule init
 RUN git submodule update
 RUN ./autogen.sh
-RUN	./configure --prefix=/pgbouncer --with-libevent=/usr/lib
+RUN ./configure --prefix=/pgbouncer --with-libevent=/usr/lib
 RUN make
 RUN make install
 RUN ls -R /pgbouncer

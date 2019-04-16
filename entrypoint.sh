@@ -6,6 +6,43 @@ PG_LOG=/var/log/pgbouncer
 PG_CONFIG_DIR=/etc/pgbouncer
 PG_USER=postgres
 
+
+function print_database_lines {
+  for i in {1..100}
+  do
+    db_name="DB_NAME_${i}"
+    if [ -n "${!db_name}" ]
+    then
+      print_database_line ${i}
+    fi
+  done
+}
+
+function print_database_line {
+  db_host="DB_HOST_$1"
+  db_name="DB_NAME_$1"
+  db_post="DB_PORT_$1"
+  db_user="DB_USER_$1"
+  db_password="DB_PASSWORD_$1"
+  db_auth_user="DB_AUTH_USER_$1"
+  db_pool_size="DB_POOL_SIZE_$1"
+  db_reserve_pool="DB_RESERVE_POOL_$1"
+  db_max_db_connections="DB_MAX_DB_CONNECTIONS_$1"
+  db_pool_mode="DB_POOL_MODE_$1"
+
+  echo ${!db_name} = host=${!db_host} \
+    port=${!db_port:-5432} \
+    dbname=${!db_name} \
+    user=${!db_user:-postgres} \
+    ${!db_password:+password=${!db_password}} \
+    ${!db_auth_user:+auth_user=${!db_auth_user}} \
+    ${!db_pool_size:+pool_size=${!db_pool_size}} \
+    ${!db_reserve_pool:+reserve_pool=${!db_reserve_pool}} \
+    ${!db_max_db_connections:+max_db_connections=${!db_max_db_connections}} \
+    ${!db_pool_mode:+pool_mode=${!db_pool_mode}}
+}
+
+
 if [ ! -f ${PG_CONFIG_DIR}/pgbouncer.ini ]; then
   echo "create pgbouncer config in ${PG_CONFIG_DIR}"
   mkdir -p ${PG_CONFIG_DIR}
@@ -17,9 +54,8 @@ if [ ! -f ${PG_CONFIG_DIR}/pgbouncer.ini ]; then
 # Lines starting with “;” or “#” are taken as comments and ignored.
 # The characters “;” and “#” are not recognized when they appear later in the line.
 [databases]
-* = host=${DB_HOST:?"Setup pgbouncer config error! You must set DB_HOST env"} \
-port=${DB_PORT:-5432} user=${DB_USER:-postgres} \
-${DB_PASSWORD:+password=${DB_PASSWORD}}
+
+`print_database_lines`
 
 [pgbouncer]
 # Generic settings
@@ -116,7 +152,7 @@ mkdir -p ${PG_LOG}
 chmod -R 755 ${PG_LOG}
 chown -R ${PG_USER}:${PG_USER} ${PG_LOG}
 
-if [ -z $QUIET ]; then
+if [ -z $QUIET_CONFIG ]; then
   cat ${PG_CONFIG_DIR}/pgbouncer.ini
 fi
 echo "Starting pgbouncer..."
