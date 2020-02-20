@@ -23,7 +23,7 @@ $ docker run -d \
 ## Installation
 
 ```bash
-$ docker pull brainsam/pgbouncer:latest
+$ docker pull <ECR>/pgbouncer:<VERSION>
 ```
 ## Configuration
 
@@ -34,3 +34,7 @@ All configuration parameters of pgbouncer are available both by *--env* (use the
 ```
 docker logs <your-pgbouncer-container-name>
 ```
+
+## Releasing
+
+To release a new image version add a git tag to this repo and run the `docker-pgbouncer` pipeline with TAG parameter set to the created git tag.
